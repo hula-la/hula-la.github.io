@@ -1,8 +1,5 @@
-source 'https://rubygems.org'
-gem 'jekyll'
-
-group :jekyll_plugins do
-  gem "jekyll-paginate"
-  gem "pygments.rb"
-end
-
+source "https://rubygems.org"
+gemspec
+gem "webrick", "~> 1.7"
+gem 'tzinfo-data'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
