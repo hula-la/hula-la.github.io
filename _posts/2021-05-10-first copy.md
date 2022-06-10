@@ -36,3 +36,5 @@ y = float(2.8)   # y will be 2.8
 z = float("3")   # z will be 3.0
 w = float("4.2") # w will be 4.2
 ```
+
+![image-20220611024804234](/assets/images/first.png)
