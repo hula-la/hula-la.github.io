@@ -13,12 +13,11 @@ sidebar:
 
 MySQL Workbench는 이전까지 잘 쓰고 있었는데
 
-![image-20220621235435082](../images/2021-06-21-mysqlError/image-20220621235435082.png)
+![image-20220621235435082](/images/2021-06-21-mysqlError/image-20220621235435082.png)
 
 이 화면에 들어가기 위해 `Administration>Server Status` 탭을 누르니 아래와 같은 에러가 떴다. 
 
-
-#### ![image-20220621235235176](../images/2021-06-21-mysqlError/image-20220621235235176.png)
+![image-20220621235235176](/images/2021-06-21-mysqlError/image-20220621235235176.png)
 
 ##### 1. ~~환경 변수 추가~~ → **실패**
 
@@ -30,4 +29,4 @@ MySQL Workbench는 이전까지 잘 쓰고 있었는데
 
 https://mondaymonday2.tistory.com/m/488 이 블로그를 참고해서 아래와 같이 언어설정에서 `Unicode UTF-8 사용` 을 체크하고 컴퓨터 재부팅을 하고 나니 에러가 사라졌다.
 
-![image-20220622000209760](../images/2021-06-21-mysqlError/image-20220622000209760.png)
+![image-20220622000209760](/images/2021-06-21-mysqlError/image-20220622000209760.png)
