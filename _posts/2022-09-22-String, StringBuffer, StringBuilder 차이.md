@@ -1,0 +1,111 @@
+---
+layout: single
+title: "String vs StringBuffer vs StringBuilder"
+categories: Java
+tag: [Java, String, StringBuffer, StringBuilder]
+toc: true
+toc_sticky: true
+author_profile: false
+sidebar:
+  nav: "docs"
+# search: false
+---
+
+## HashMap
+
+- HashMap이란 **키**와 **값**을 묶어서 하나의 데이터로 저장.
+- 그리고 hashing을 사용하기 때문에 데이터를 검색하는데 성능이 뛰어남.
+
+#### 🧀 Hashing
+
+- 해시함수를 이용해서 데이터를 해시 테이블에 저장하고 검색하는 기법
+
+- ##### 방법
+
+  1. 키값을 해시함수에 넣음.
+  2. 해시함수 결과 값(해시코드)에 해당하는 링크드리스트를 찾음.
+  3. 링크드 리스트에 검색한 키와 일치하는 데이터를 저장하거나 또는 데이터를 찾음.
+
+#### 🍫 hashCode
+
+- Map을 사용할 때 때때로 hashCode를 사용하면 직접 해쉬 값을 만들 수 있음.
+
+- ##### 🔎 직접 해쉬 코드를 만들어야 하는 경우는 언젤까?
+
+  - ##### 문제상황 1
+
+    - 맵 안에 2개의 중복된 데이터를 저장
+    - HashCode 값이 다르기 때문에, 내용이 똑같아도 중복저장 됨.
+    - hashCode를 오버라이딩하면 직접 해쉬코드를 생성할 수 있음.
+
+  - ##### 문제해결 1
+
+    - ```java
+      @Override
+      public int hashCode() {
+          final int number = 31;
+          int hashCode = 1;
+      
+          hashCode = number * hashCode + ((name == null) ? 0 : name.hashCode());
+          hashCode = number * hashCode + ((nickName == null) ? 0 : nickName.hashCode());
+          hashCode = number * hashCode + age;
+      
+          return hashCode;
+      }
+      ```
+
+  - ##### 문제상황 2
+
+    - 동일한 내용에 대해서 hash 값은 같아짐.
+
+    - 똑같이 맵 안에 데이터가 2개 저장됨.
+
+    - equals도 오버라이딩 해줘야 함.
+
+    - map의 equals 함수는 객체로 비교함.
+
+      ```java
+      public final boolean equals(Object o) {
+          if (o == this)
+              return true;
+          if (o instanceof Map.Entry) {
+              Map.Entry<?,?> e = (Map.Entry<?,?>)o;
+              if (Objects.equals(key, e.getKey()) &&
+              Objects.equals(value, e.getValue()))
+              return true;
+          }
+          return false;
+      }
+      ```
+
+    - 2 개의 객체를 각각 생성하면, hashcode가 같아도 객체를 비교할 때 다르다고 나옴.
+
+    - HashMap에 저장될 때 비교를 수행하게 되고, 두 번 저장됨.
+
+  - ##### 문제해결 2
+
+    ```java
+    @Override
+    public boolean equals(Object o) {
+        // 객체가 동일하다면 true 중복저장 안됨
+        if (this == o) return true;
+    
+        // 객체가 널이거나 클래스 값이 다르면 다르기 때문에 false
+        // member인 경우 클래스가 둘다 동일하기 때문에 그냥 넘어간다.
+        if (o == null || getClass() != o.getClass()) return false;
+    
+        // 멤버 값 비교
+        Member member = (Member) o;
+    
+        // 나이, 이름, 닉네임을 비교해서 다른지 체크한다.
+        return age == member.age && Objects.equals(name, member.name) && Objects.equals(nickName, member.nickName);
+    }
+    ```
+
+    
+
+#### 📌 결론
+
+- hashCode를 직접 만들 수 있음.
+- equals를 오버라이딩 해야 함.
+- hashCode나 equals를 오버라이딩하면, 둘 다 오버라이딩 해야 함
